@@ -1,0 +1,38 @@
+% 过程图公共样式：每个模板 \input{procstyle} 引入。改颜色、字号只改这里，全文统一。
+% 编译：xelatex 图名.tex（或 latexmk -xelatex 图名.tex），输出同名 PDF，论文里 \includegraphics[width=\textwidth]{图名}。
+% 设计宽度约 150 mm（A4 版心），按 \textwidth 插入时基本不缩放，图中字号接近正文五号。
+\usepackage{amsmath}
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{}
+\usetikzlibrary{positioning,arrows.meta,fit,calc,shapes.geometric,backgrounds,decorations.pathreplacing}
+
+% 配色：与 figstyle.py 一致（蓝 / 橙 / 青 + 灰），黑白打印靠边框线型和文字区分，不只靠颜色
+\definecolor{cB}{HTML}{2A78D6}\definecolor{cBL}{HTML}{E6F0FC}
+\definecolor{cO}{HTML}{EB6834}\definecolor{cOL}{HTML}{FDEDE6}
+\definecolor{cA}{HTML}{1BAF7A}\definecolor{cAL}{HTML}{E4F6EF}
+\definecolor{cG}{HTML}{9A9892}\definecolor{cGL}{HTML}{F2F1EE}
+\definecolor{ink}{HTML}{0B0B0B}\definecolor{ink2}{HTML}{52514E}
+
+\tikzset{
+  every node/.style={font=\small, text=ink},
+  % 普通步骤框：box=cB（蓝）/ cO（橙）/ cA（青）/ cG（灰）
+  box/.style={draw=#1, fill=#1L, rounded corners=2pt, line width=0.6pt, align=flush center,
+              minimum height=9mm, inner sep=3pt},
+  box/.default=cB,
+  % 强调框：本文核心模型/算法
+  key/.style={box=cO, line width=1pt},
+  % 数据/输入输出：斜角平行四边形
+  io/.style={draw=ink2, fill=cGL, trapezium, trapezium left angle=72, trapezium right angle=108,
+             align=flush center, minimum height=8mm, inner sep=2pt, line width=0.6pt},
+  % 流程图专用
+  term/.style={draw=ink2, fill=cGL, rounded corners=4.5mm, minimum height=9mm, minimum width=24mm, line width=0.6pt},
+  proc/.style={box=cB, minimum width=40mm},
+  dec/.style={draw=cO, fill=cOL, diamond, aspect=2.4, align=center, inner sep=1pt, line width=0.6pt},
+  % 分组底框与标签
+  group/.style={draw=ink2, dashed, rounded corners=3pt, inner sep=4pt, line width=0.5pt},
+  glabel/.style={font=\small\bfseries, text=ink2},
+  note/.style={font=\footnotesize, text=ink2, align=flush center},
+  arr/.style={-{Stealth[length=2.2mm]}, line width=0.7pt, draw=ink2},
+  arrB/.style={arr, draw=cB, line width=0.9pt},
+  arrO/.style={arr, draw=cO, line width=0.9pt, dashed},
+}

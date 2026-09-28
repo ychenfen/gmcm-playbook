@@ -1,0 +1,35 @@
+% 相位构造示例：7 个操作，2 核；蓝 = 核 0，橙 = 核 1；节点旁为相位 φ；虚线框为最终子图
+\begin{tikzpicture}[x=1mm,y=1mm]
+\tikzset{lbl/.style={font=\scriptsize, text=ink2}, grp/.style={pgroup, inner sep=2.2mm},
+         opA/.append style={minimum size=9mm, align=center}, opB/.append style={minimum size=9mm, align=center}}
+\newcommand{\ph}[2]{$#1$\\[-2pt]{\tiny$\phi{=}#2$}}
+\node[font=\bfseries\small] at (-8,9) {a};
+\node[opA] (a) at (0,0) {\ph{a}{0}};
+\node[opB] (b) at (0,-18) {\ph{b}{0}};
+\node[opA] (c) at (16,0) {\ph{c}{0}};
+\node[opB] (d) at (16,-18) {\ph{d}{0}};
+\node[opA] (e) at (34,0) {\ph{e}{1}};
+\node[opA] (f) at (50,0) {\ph{f}{1}};
+\node[opB] (g) at (50,-18) {\ph{g}{2}};
+\draw[parr] (a) -- (c); \draw[parr] (b) -- (d); \draw[parr] (c) -- (e); \draw[parr] (e) -- (f);
+\draw[parrO] (d) -- node[pnote, left, pos=0.5]{$+1$} (e);
+\draw[parrO] (e) -- node[pnote, right, pos=0.5]{$+1$} (g);
+\begin{scope}[on background layer]
+\node[grp, fit=(a)(c)] (S1) {}; \node[grp, fit=(b)(d)] (S2) {};
+\node[grp, fit=(e)(f)] (S3) {}; \node[grp, fit=(g)] (S4) {};
+\end{scope}
+\node[pnote, anchor=south west] at (S1.north west) {$S_1{=}(0,0)$};
+\node[pnote, anchor=north west] at (S2.south west) {$S_2{=}(1,0)$};
+\node[pnote, anchor=south east] at (S3.north east) {$S_3{=}(0,1)$};
+\node[pnote, anchor=north east] at (S4.south east) {$S_4{=}(1,2)$};
+% 右侧：商图与各核序列
+\begin{scope}[xshift=76mm, yshift=-8mm]
+\node[font=\bfseries\small, anchor=west] at (-8,15) {b};
+\node[pbox=cB, minimum width=10mm] (q1) at (0,6) {$S_1$};
+\node[pbox=cO, minimum width=10mm] (q2) at (0,-6) {$S_2$};
+\node[pbox=cB, minimum width=10mm] (q3) at (16,6) {$S_3$};
+\node[pbox=cO, minimum width=10mm] (q4) at (32,-6) {$S_4$};
+\draw[parr] (q1) -- (q3); \draw[parrO] (q2) -- (q3); \draw[parrO] (q3) -- (q4);
+\node[pnote, anchor=north west, align=left] at (-6,-13) {$\Pi_0=(S_1,S_3)$，\ $\Pi_1=(S_2,S_4)$};
+\end{scope}
+\end{tikzpicture}

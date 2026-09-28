@@ -1,0 +1,18 @@
+% 问题一的求解步骤（5 核平均加速比，数字取自 numbers.tex）
+\begin{tikzpicture}[x=1mm,y=1mm]
+\def\dx{30}\def\dy{10}
+\tikzset{st/.style={pbox=#1, text width=24mm, minimum height=14mm, anchor=south west, font=\footnotesize}}
+\node[st=cG] (s0) at (0,0)        {分量装箱\\[1pt]\textbf{\V{p1_k5_lpt_mean}}};
+\node[st=cB] (s1) at (\dx,\dy)    {+ 层带划分\\[1pt]\textbf{\V{p1_k5_lptband_mean}}};
+\node[st=cB] (s2) at (2*\dx,2*\dy){+ 相位构造\\[1pt]\textbf{\V{ladder_p1_k5_sweep}}};
+\node[st=cO] (s3) at (3*\dx,3*\dy){+ 成组合并\\[1pt]\textbf{\V{ladder_p1_k5_coarsen}}};
+\node[st=cO, line width=1pt] (s4) at (4*\dx,4*\dy){+ 局部搜索\\+ 核数补齐\\[1pt]\textbf{\V{ladder_p1_k5_monotone}}};
+\foreach \i/\j in {0/1,1/2,2/3,3/4} \draw[parrO] (s\i.north) |- (s\j.west);
+\tikzset{why/.style={pnote, text=cO, anchor=north, text width=25mm, font=\scriptsize}}
+\node[why] at ($(s1.south)+(0,-1)$) {I 类 4 核仅 \V{p1_k4_famI_naive_mean}};
+\node[why] at ($(s2.south)+(0,-1)$) {汇聚链跨核依赖多};
+\node[why] at ($(s3.south)+(0,-1)$) {同核 Task 过碎};
+\node[why] at ($(s4.south)+(0,-1)$) {部分用例多核反慢};
+\node[pnote, anchor=north, text width=25mm, font=\scriptsize] at ($(s0.south)+(0,-1)$) {$\alpha=0.25$：\V{p1_k5_naive_mean}};
+\draw[-{Stealth[length=2mm]}, line width=0.7pt, draw=ink2] (-3,-12) -- (148,-12) node[pnote, anchor=north east] {评估次数 $\rightarrow$};
+\end{tikzpicture}

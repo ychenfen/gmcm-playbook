@@ -1,0 +1,79 @@
+% !TEX program = xelatex
+% 华为杯第二十三届中国研究生数学建模竞赛 A 题论文
+% 编译：latexmk -xelatex main.tex（图在 ../fig 与 tikz/，数字宏在 numbers.tex，由 src/numbers_tex.py 生成）
+\documentclass[bwprint]{gmcmthesis}
+\hypersetup{hidelinks}
+\setcitestyle{super,square}
+
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\scriptsize, columns=fullflexible, keepspaces=true, breaklines=true,
+  numbers=left, numberstyle=\tiny\color{gray}, numbersep=6pt, frame=lines, framerule=0.4pt,
+  keywordstyle=\bfseries, commentstyle=\color{black!60}, showstringspaces=false, tabsize=4,
+  xleftmargin=1.5em, framexleftmargin=1.5em, aboveskip=6pt, belowskip=6pt}
+\usepackage{booktabs,longtable,multirow,makecell}
+\usepackage[noend]{algpseudocode}
+\usepackage{algorithmicx,algorithm}
+\floatname{algorithm}{算法}
+\renewcommand{\algorithmicrequire}{\textbf{输入:}}
+\renewcommand{\algorithmicensure}{\textbf{输出:}}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,calc,shapes.geometric,backgrounds,decorations.pathreplacing}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\graphicspath{{figures/}{../fig/}{tikz/}}
+
+\newcounter{proposition}[section]
+\renewcommand{\theproposition}{\thesection.\arabic{proposition}}
+\newenvironment{proposition}{\par\medskip\refstepcounter{proposition}\noindent{\heiti 命题 \theproposition}\quad}{\par\medskip}
+\newcounter{remark}[section]
+\renewcommand{\theremark}{\thesection.\arabic{remark}}
+\newenvironment{remark}{\par\refstepcounter{remark}\noindent{\heiti 注 \theremark}\quad}{\par}
+\renewenvironment{proof}{\par\noindent\textbf{证明}\quad}{\par\medskip}
+
+\newcommand{\Oe}{O^{\ast}}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\sg}{\sigma}
+\newcommand{\core}{\kappa}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\input{numbers}
+\input{tikzstyle}
+
+%===================== 封面信息（由参赛队填写） ======================
+\title{面向共享带宽多核 NPU 的结构自适应切图调度与缓存时序分析}
+\baominghao{\hspace{6em} 请填写参赛队号}
+\schoolname{\hspace{5.8em} 请填写学校名称}
+\membera{\hspace{6em} 队员一}
+\memberb{\hspace{6em} 队员二}
+\memberc{\hspace{6em} 队员三}
+%=====================================================================
+
+\begin{document}
+\maketitle
+\input{sections/abstract}
+\pagestyle{plain}
+\maketoc
+\clearpage
+
+\input{sections/s1_restate}
+\input{sections/s2_analysis}
+\input{sections/s3_assume}
+\input{sections/s4_symbols}
+\input{sections/s5_overview}
+\input{sections/s5_p1}
+\input{sections/s5_p2}
+\input{sections/s5_p3}
+\input{sections/s6_check}
+\input{sections/s7_eval}
+
+\input{sections/refs}
+
+\begin{appendices}
+\input{sections/appendix}
+\end{appendices}
+\end{document}

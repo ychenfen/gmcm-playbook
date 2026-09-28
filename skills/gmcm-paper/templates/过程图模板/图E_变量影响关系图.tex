@@ -1,0 +1,33 @@
+% 图E 变量影响关系图（机理示意）。放在「问题分析」或「模型建立」开头，适合机理建模、系统动力学、因果分析类题目。
+% 回答：系统里有哪些状态变量和控制变量、谁影响谁、正向还是负向、哪条是反馈回路——公式里每一项都能在图上找到对应的箭头。
+% 改法：圆角框 = 状态变量，方框 = 控制/决策变量，灰框 = 外部输入；箭头旁写 +/− 和对应公式编号，例如「+ 式(3)」。
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[UTF8]{ctex}
+\input{procstyle}
+\begin{document}
+\begin{tikzpicture}[x=1mm,y=1mm]
+\tikzset{state/.style={box, rounded corners=5mm, minimum width=25mm, minimum height=11mm},
+         ctrl/.style={key, rounded corners=0pt, minimum width=23mm, minimum height=10mm},
+         ext/.style={box=cG, minimum width=24mm, minimum height=10mm},
+         lab/.style={note, fill=white, inner sep=1pt}}
+\node[ext]   (env)  at (0,30)   {环境温度 $T_{\mathrm{env}}$};
+\node[ctrl]  (cur)  at (0,0)    {加载电流 $I(t)$};
+\node[state] (heat) at (42,15)  {产热功率 $Q_{\mathrm{gen}}$};
+\node[state] (temp) at (86,15)  {电堆温度 $T(t)$};
+\node[state] (ice)  at (86,-15) {结冰量 $s(t)$};
+\node[state] (volt) at (42,-15) {输出电压 $V(t)$};
+\node[ctrl]  (heatx) at (124,-15) {辅助加热 $P_{\mathrm{h}}$};
+\draw[arr] (cur) -- node[lab, pos=0.45]{+ 式(3)} (heat);
+\draw[arr] (heat) -- node[lab]{+ 式(5)} (temp);
+\draw[arr] (heatx) |- node[lab, pos=0.25]{+} (temp);
+\draw[arr] (env.east) -| node[lab, pos=0.75]{− 散热 式(6)} (temp.north);
+\draw[arr] (temp) -- node[lab]{− 式(8)} (ice);
+\draw[arr] (ice) -- node[lab]{− 式(9)} (volt);
+\draw[arr] (cur) -- node[lab, pos=0.45]{− 欧姆损失} (volt);
+% 反馈回路：电压下降 → 产热增加（负反馈标 B，正反馈标 R）
+\draw[arrB] (volt) -- node[lab, right]{+ 效率降低} (heat);
+\node[circle, draw=cB, line width=0.8pt, inner sep=1pt, font=\footnotesize\bfseries, text=cB] at (64,0) {R};
+\node[note, anchor=north, text width=60mm, align=left] at (64,-24)
+  {R：正反馈回路。结冰使电压下降，低效率又增加产热，加速融冰。};
+\end{tikzpicture}
+\end{document}

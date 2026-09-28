@@ -1,0 +1,31 @@
+% 图F 双层（主从）模型结构。放在优化类题目的「模型建立」小节，适合上层规划—下层响应、调度—仿真、决策—评价等结构。
+% 回答：上层决定什么、下层决定什么、两层之间传递哪些量、怎样迭代收敛；每层的目标与约束对应哪几个公式。
+% 改法：保留「目标 / 决策变量 / 约束」三栏；层间箭头写传递的具体变量；右侧写迭代与收敛判据。
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[UTF8]{ctex}
+\input{procstyle}
+\begin{document}
+\begin{tikzpicture}[x=1mm,y=1mm]
+\tikzset{cell/.style={box, text width=36mm, minimum height=15mm, font=\footnotesize},
+         hdr/.style={glabel, anchor=south}}
+% 上层
+\node[cell=cO] (uo) at (0,40)  {$\min\ C_{\text{建设}}+C_{\text{运营}}$\\式(10)};
+\node[cell=cO] (ud) at (42,40) {站点选址 $y_j\in\{0,1\}$\\容量 $K_j$};
+\node[cell=cO] (uc) at (84,40) {预算 $\sum c_jy_j\le B$\\覆盖率 $\ge 95\%$\\式(11)–(13)};
+% 下层
+\node[cell] (lo) at (0,0)  {$\min$ 总运输时间\\式(14)};
+\node[cell] (ld) at (42,0) {车辆路径 $x_{ijk}$\\到达时刻 $t_i$};
+\node[cell] (lc) at (84,0) {载重、时间窗\\流量守恒\\式(15)–(19)};
+\foreach \n/\t in {uo/目标, ud/决策变量, uc/约束} \node[hdr] (h\n) at ($(\n.north)+(0,0.5)$) {\t};
+\begin{scope}[on background layer]
+  \node[group, fit=(huo)(uo)(uc), inner sep=3mm, label={[glabel, anchor=east]west:上层 规划}] (U) {};
+  \node[group, fit=(lo)(lc), inner sep=3mm, label={[glabel, anchor=east]west:下层 调度}] (L) {};
+\end{scope}
+% 层间传递
+\draw[arr, line width=0.9pt] ($(U.south)+(-12,0)$) -- node[left, note, text width=26mm, align=flush right]{选址 $y_j$、容量 $K_j$\\作为下层参数} ($(L.north)+(-12,0)$);
+\draw[arr, line width=0.9pt, draw=cB] ($(L.north)+(12,0)$) -- node[right, note, text width=28mm, align=flush left]{运输时间 $T^*(y)$\\反馈给上层目标} ($(U.south)+(12,0)$);
+% 迭代说明
+\node[box=cA, minimum width=110mm, font=\footnotesize, anchor=north] at ($(L.south)+(0,-4)$)
+  {\textbf{求解：交替迭代}\quad 上层遗传算法生成 $y$ → 下层精确求解 $T^*(y)$ → 回代上层目标；$|\Delta C|<0.5\%$ 连续 20 代停止};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,67 @@
+\section{问题一逐用例结果}
+\input{tables/app_p1}
+
+\section{问题二逐用例结果}
+\input{tables/app_p2}
+
+\section{问题三逐用例结果}
+表中“加速比”为同核数下只读 Cache 相对无 L2 的加速比（两种配置各自取最优方案），命中率为只读 Cache 配置下的字节命中率。
+\input{tables/app_p3}
+
+\section{关键源程序}
+
+附件程序只依赖 Python 3.10 及以上版本的标准库和赛题官方材料包。下面给出三种构造算法（算法~\ref{alg:lpt}--\ref{alg:phase}）和求解入口的完整源码，求解入口中包含候选生成、官方评估、成组合并与补空核（算法~\ref{alg:select} 的前半部分）。参数扫描、局部搜索、交叉复评与统计作图的实验代码随附件提交，此处从略。
+
+\lstinputlisting[language=Python, title={\small 分量装箱与拓扑区间切分（nmcs/algos.py）}]{code/algos.py}
+\lstinputlisting[language=Python, title={\small 层带 $\times$ 核划分（nmcs/algos2.py）}]{code/algos2.py}
+\lstinputlisting[language=Python, title={\small 通信感知表调度与相位构造（nmcs/algos4.py）}]{code/algos4.py}
+\lstinputlisting[language=Python, title={\small 求解入口（solve.py）}]{code/solve.py}
+
+\section{人工智能工具使用说明}
+
+本说明依据《“华为杯”第二十三届中国研究生数学建模竞赛人工智能工具及输出使用规定》整理。本文的问题理解、建模思路、技术路线以及各项方案取舍由参赛队讨论确定。人工智能工具在队员给定思路和要求后，承担编程实现、批量计算与数据整理、论文语言润色与排版等辅助工作；全部数值均由赛题官方评估程序在固定配置下给出，经队员核验后采用。
+
+\noindent\textbf{一、所用人工智能工具}
+\begin{center}\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{cccccc}
+\toprule
+序号 & 工具名称 & 版本/型号 & 开发机构 & 版本颁布日期 & 使用日期 \\
+\midrule
+1 & Claude Code & Claude Opus 5.5 & Anthropic & 2026-09-22 & 2026-09-23 至 09-25 \\
+2 & OpenAI Codex & GPT-6-Astra、GPT-5.6-Sol & OpenAI & 2026-09-04、2026-07-09 & 2026-09-23 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\noindent\textbf{二、使用环节与目的}
+\begin{center}\small
+\begin{tabular}{c p{2.6cm} p{9.2cm} c}
+\toprule
+序号 & 使用环节 & 内容与目的 & 所用工具 \\
+\midrule
+1 & 编程实现 & 按队员确定的三种构造算法和选优、后处理流程编写与调试代码，整理附件程序 \texttt{solve.py}、\texttt{reproduce.py} & Claude Code \\
+2 & 批量计算与数据整理 & 调用官方评估程序完成参数扫描、后处理与终版复评；汇总统计、计算性能参照值与缓存诊断指标，生成数据图 & Claude Code \\
+3 & 方案评审与代码检查 & 对问题三的实验方案提出评审意见（成组合并后处理）并做小样本验证；检查实验收尾脚本 & OpenAI Codex \\
+4 & 论文润色与排版 & 提供初稿供队员参考，语言润色，LaTeX 与 Word 版式整理和格式检查 & Claude Code \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{三、使用方式}\quad 队员先确定每一步要做什么，再向工具说明具体要求：编程环节给出算法思路、输入输出格式和合法性要求；计算与数据整理环节给出参数范围和统计口径；评审环节提供实验记录，请工具指出方案和代码中可能的问题；写作环节在队员确定的结构和结论之上生成初稿、润色语言和整理版式。建模思路、模型形式、方案取舍和结论不交由工具决定。
+
+\noindent\textbf{四、采纳、人工修改和核验情况}
+\begin{center}\small
+\begin{tabular}{c c p{11.6cm}}
+\toprule
+序号 & 所用工具 & 采纳、人工修改和核验情况 \\
+\midrule
+1 & Claude Code & 队员审阅代码逻辑与论文算法是否一致；三种构造算法的合法性由命题证明，队员逐条核对推导 \\
+2 & Claude Code & 所有数值由官方评估程序在固定配置下复评，1{,}400 个主结果与记录逐位一致；工具不产生未经评估程序验证的数字 \\
+3 & OpenAI Codex & 成组合并建议经小样本验证、全量复评确认有效后采纳；检查发现的脚本缺陷修复后重新测试 \\
+4 & Claude Code & 模型、公式与证明由队员推导核对，正文由队员在初稿基础上改写定稿；参考文献均为正式发表的文献，未引用工具输出 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+全部程序文件开头均按规定注明了人工智能工具的使用情况。

@@ -1,0 +1,41 @@
+% 整体求解流程（正文图 5.1）
+\begin{tikzpicture}[x=1mm,y=1mm]
+\tikzset{cell/.style={pbox=#1, text width=29mm, minimum height=10mm, font=\footnotesize},
+         wide/.style={pbox=#1, minimum height=8mm, font=\footnotesize}}
+% 行坐标
+\def\yI{0}\def\yA{-15}\def\yC{-31}\def\yP{-48}\def\yS{-62}\def\yO{-76}
+% ---- 输入
+\node[pio, trapezium stretches body, text width=24mm, minimum width=30mm, minimum height=10mm, font=\footnotesize] (i1) at (17,\yI) {计算图 $G$\\100 个用例};
+\node[pio, trapezium stretches body, text width=24mm, minimum width=30mm, minimum height=10mm, font=\footnotesize] (i2) at (53,\yI) {官方评估程序\\$E_p$};
+\node[pio, trapezium stretches body, text width=24mm, minimum width=30mm, minimum height=10mm, font=\footnotesize] (i3) at (89,\yI) {单核基准\\$M_1^{\mathrm{sc}}$};
+% ---- 分析
+\node[cell=cA] (a1) at (17,\yA) {结构刻画\\$\eta$，$\omega$};
+\node[cell=cA] (a2) at (53,\yA) {性能参照\\$\underline{M}_k^{\mathrm{an}}$，$M_k^0$，$M_k^\delta$};
+\node[cell=cA] (a3) at (89,\yA) {代价模型\\$Q_A,\ Q_B,\ h,\ \theta$};
+% ---- 构造
+\node[cell=cB] (c1) at (17,\yC) {$\mathrm{LPT}(\alpha)$\\多分量};
+\node[cell=cB] (c2) at (53,\yC) {$\mathrm{BAND}(W)$\\单一巨块};
+\node[cell=cB] (c3) at (89,\yC) {$\mathrm{PHASE}(\lambda)$\\汇聚链};
+% ---- 后处理
+\node[pbox=cO, text width=21mm, minimum height=9mm, font=\footnotesize] (p1) at (10,\yP) {成组合并};
+\node[pbox=cO, text width=21mm, minimum height=9mm, font=\footnotesize] (p2) at (38,\yP) {局部搜索};
+\node[pbox=cO, text width=21mm, minimum height=9mm, font=\footnotesize] (p3) at (66,\yP) {交叉复评\\问题二$\leftrightarrow$三};
+\node[pbox=cO, text width=21mm, minimum height=9mm, font=\footnotesize] (p4) at (94,\yP) {核数补齐};
+% ---- 选优
+\node[wide=cA, text width=100mm] (s) at (53,\yS) {$x^*=\argmin_{x\in\mathcal{C}_{p,k}}E_p(x)$};
+% ---- 输出
+\node[pio, trapezium stretches body, text width=24mm, minimum width=30mm, minimum height=10mm, font=\footnotesize] (o1) at (17,\yO) {问题一\\场景 A};
+\node[pio, trapezium stretches body, text width=24mm, minimum width=30mm, minimum height=10mm, font=\footnotesize] (o2) at (53,\yO) {问题二\\场景 B};
+\node[pio, trapezium stretches body, text width=24mm, minimum width=30mm, minimum height=10mm, font=\footnotesize] (o3) at (89,\yO) {问题三\\只读 L2};
+% ---- 箭头
+\foreach \a/\b in {i1/a1,i2/a2,i3/a3,a1/c1,a2/c2,a3/c3} \draw[parr] (\a) -- (\b);
+\coordinate (bus) at (53,\yP+8);
+\foreach \c in {c1,c2,c3} \draw[line width=0.7pt, draw=ink2] (\c.south) -- (\c.south |- bus);
+\draw[line width=0.7pt, draw=ink2] (10,\yP+8) -- (94,\yP+8);
+\foreach \p in {p1,p2,p3,p4} \draw[parr] (\p.north |- bus) -- (\p.north);
+\foreach \p in {p1,p2,p3,p4} \draw[parr] (\p.south) -- (\p.south |- s.north);
+\foreach \o in {o1,o2,o3} \draw[parr] (s.south -| \o) -- (\o.north);
+% ---- 层标签
+\foreach \y/\t in {\yI/输入, \yA/分析, \yC/构造, \yP/后处理, \yS/选优, \yO/输出}
+  \node[plab, anchor=east, font=\footnotesize\bfseries] at (-3,\y) {\t};
+\end{tikzpicture}

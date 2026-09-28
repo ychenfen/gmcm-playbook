@@ -1,0 +1,30 @@
+% 图D 数据预处理流程。放在「数据预处理」小节开头。
+% 回答：原始数据经过哪几步、每步用什么方法、每步后还剩多少样本/特征——评委最关心数据是否被“处理干净”且没有乱删。
+% 改法：框里写方法，框下灰字写具体规则和数量变化；数字必须来自你们的处理日志。宽度控制在 150 mm 以内（A4 版心）。
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[UTF8]{ctex}
+\input{procstyle}
+\begin{document}
+\begin{tikzpicture}[node distance=3.5mm]
+\tikzset{st/.style={box, text width=15mm, minimum height=12mm},
+         dat/.style={io, minimum width=19mm, minimum height=12mm},
+         det/.style={note, text width=21mm, anchor=north, font=\footnotesize}}
+\node[dat] (raw) {原始数据\\附件 1–3};
+\node[st, right=of raw] (s1) {格式统一\\与对齐};
+\node[st, right=of s1] (s2) {缺失值\\处理};
+\node[st, right=of s2] (s3) {异常值\\识别};
+\node[st, right=of s3] (s4) {特征构造\\与筛选};
+\node[dat, right=of s4] (out) {建模\\数据集};
+\foreach \a/\b in {raw/s1, s1/s2, s2/s3, s3/s4, s4/out} \draw[arr] (\a) -- (\b);
+\node[det] at ($(raw.south)+(0,-2mm)$) {3 张表\\17 个字段\\$n=52\,560$};
+\node[det] at ($(s1.south)+(0,-2mm)$) {15 min 步长\\时间戳对齐\\$n=52\,560$};
+\node[det] at ($(s2.south)+(0,-2mm)$) {缺失 1.9\%\\短缺口插值\\长缺口删除\\$n=51\,902$};
+\node[det] at ($(s3.south)+(0,-2mm)$) {3$\sigma$ + 物理范围\\修正 188 条\\删除 26 条\\$n=51\,876$};
+\node[det] at ($(s4.south)+(0,-2mm)$) {构造 24 维\\去冗余（$|r|>0.9$）\\保留 15 维};
+\node[det] at ($(out.south)+(0,-2mm)$) {按时间划分\\训练 : 验证 : 测试\\= 70 : 15 : 15};
+\draw[decorate, decoration={brace, amplitude=4pt}, line width=0.6pt, draw=ink2]
+  ($(s1.north west)+(0,2mm)$) -- node[above=4pt, glabel]{清洗} ($(s3.north east)+(0,2mm)$);
+\draw[decorate, decoration={brace, amplitude=4pt}, line width=0.6pt, draw=ink2]
+  ($(s4.north west)+(0,2mm)$) -- node[above=4pt, glabel]{特征工程} ($(s4.north east)+(0,2mm)$);
+\end{tikzpicture}
+\end{document}

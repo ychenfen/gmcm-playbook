@@ -1,0 +1,52 @@
+% 场景 A / B 的 Task 组织与边界搬运对比（3 个子图：s1、s2 在核 0，s3 在核 1；依赖 s1→s2、s1→s3）
+\begin{tikzpicture}[x=1mm,y=1mm]
+\tikzset{
+  sgb/.style={pbox=cB, minimum width=11mm, minimum height=7mm, font=\footnotesize},
+  cin/.style={draw=cO, fill=cOL, minimum width=3.2mm, minimum height=7mm, inner sep=0pt, font=\tiny, line width=0.5pt},
+  task/.style={draw=ink2, dashed, rounded corners=2pt, inner sep=1.4mm, line width=0.5pt},
+  ddr/.style={draw=cG, fill=cGL, minimum height=4mm, font=\scriptsize, text=ink2},
+  lab/.style={font=\footnotesize\bfseries, text=ink2, anchor=east},
+}
+% ======================= (a) 场景 A =======================
+\node[font=\small\bfseries, anchor=west] at (-10,25) {(a) 场景 A：每个子图一个 Task};
+\node[lab] at (-1,10) {核 0};
+\node[lab] at (-1,-10) {核 1};
+\node[ddr, minimum width=62mm, anchor=west] (dA) at (0,0) {DDR};
+\node[cin] (a1i) at (2,10) {I};
+\node[sgb, right=0pt of a1i] (a1) {$s_1$};
+\node[cin, right=0pt of a1] (a1o) {O};
+\node[task, fit=(a1i)(a1o)] (t1) {};
+\node[cin] (a2i) at (36,10) {I};
+\node[sgb, right=0pt of a2i] (a2) {$s_2$};
+\node[cin, right=0pt of a2] (a2o) {O};
+\node[task, fit=(a2i)(a2o)] (t2) {};
+\node[cin] (a3i) at (36,-10) {I};
+\node[sgb, right=0pt of a3i] (a3) {$s_3$};
+\node[cin, right=0pt of a3] (a3o) {O};
+\node[task, fit=(a3i)(a3o)] {};
+\draw[parrO] (a1o.south) -- ++(0,-7.5) -| (a2i.south);
+\draw[parrO] (a1o.south) ++(0,-7.5) -| (a3i.north);
+\draw[decorate, decoration={brace, amplitude=2pt}, draw=ink2] ($(t1.north east)+(0.5,1)$) -- node[above=2pt, pnote]{同核等待 $\ge 100$} ($(t2.north west)+(-0.5,1)$);
+\node[pnote, text=cO, anchor=east] at ($(a3i.west)+(-3,0)$) {跨核等待 $\ge 1000$};
+\node[pnote, anchor=north, text width=64mm, align=left] at (31,-17)
+  {同核的 $s_1\to s_2$ 也要写回 DDR 再读入；\\每个 Task 结束都清空核内缓存};
+% ======================= (b) 场景 B =======================
+\begin{scope}[xshift=76mm]
+\node[font=\small\bfseries, anchor=west] at (-10,25) {(b) 场景 B：每核一个 Task};
+\node[lab] at (-1,10) {核 0};
+\node[lab] at (-1,-10) {核 1};
+\node[ddr, minimum width=62mm, anchor=west] (dB) at (0,0) {DDR};
+\node[sgb] (b1) at (8,10) {$s_1$};
+\node[cin, right=0pt of b1] (b1o) {O};
+\node[sgb, right=12mm of b1o] (b2) {$s_2$};
+\node[task, fit=(b1)(b1o)(b2)] {};
+\draw[parrB] (b1.north) to[bend left=28] node[above, pnote]{L1/UB 驻留} (b2.north);
+\node[cin] (b3i) at (36,-10) {I};
+\node[sgb, right=0pt of b3i] (b3) {$s_3$};
+\node[task, fit=(b3i)(b3)] {};
+\draw[parrO] (b1o.south) -- ++(0,-7.5) -| (b3i.north);
+\node[pnote, text=cO, anchor=east] at ($(b3i.west)+(-3,0)$) {同步 $+500$};
+\node[pnote, anchor=north, text width=62mm, align=left] at (31,-17)
+  {同核的 $s_1\to s_2$ 直接复用核内缓存，不产生搬运；\\只有跨核的 $s_1\to s_3$ 经 DDR，并等待 500 周期};
+\end{scope}
+\end{tikzpicture}

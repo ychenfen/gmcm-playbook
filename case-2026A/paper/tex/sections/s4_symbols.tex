@@ -1,0 +1,86 @@
+\section{符号说明}
+
+本文使用的主要符号见表~\ref{tab:symbols}，按计算图、方案、代价与时间、算法、缓存和评价指标分组；仅在某一推导中临时使用的记号在出现处说明。
+
+\begin{footnotesize}
+\renewcommand\arraystretch{1.12}
+\begin{longtable}{c p{3.3cm} p{9.6cm}}
+\caption{主要符号说明}\label{tab:symbols}\\
+\toprule
+类别 & 符号 & 含义 \\
+\midrule
+\endfirsthead
+\toprule
+类别 & 符号 & 含义 \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\multirow{10}{*}{计算图}
+ & $G=(V,E)$ & 计算图，$V=T\cup O$，$T$ 为张量节点、$O$ 为操作节点 \\
+ & $s_t$ & 张量 $t$ 的字节数 \\
+ & $\Oe$ & 可分配操作集合（除 COPY\_IN、COPY\_OUT 外的操作） \\
+ & $c_v,\ \pi(v)$ & 操作 $v$ 的周期数与流水线（M、V、MTE2、MTE3） \\
+ & $D=(\Oe,A)$ & 跨过张量与搬运节点收缩得到的操作依赖图 \\
+ & $P_t,\ U_t$ & 张量 $t$ 的可分配生产者、消费者集合 \\
+ & $T_{\mathrm{out}}$ & 计算图输出张量集合 \\
+ & $W_M,\ W_V$ & 全图 Cube、Vector 计算周期总和 \\
+ & $L_{\mathrm{cp}}$ & 按周期加权的关键路径长度 \\
+ & $\eta,\ \omega$ & 最大连通分量的计算量占比；宽度比 $(W_M+W_V)/L_{\mathrm{cp}}$ \\
+\midrule
+\multirow{9}{*}{方案}
+ & $k$ & 核心数，$k\in\{1,\dots,5\}$ \\
+ & $S$ & 子图集合，$|S|$ 不预先固定 \\
+ & $x_{vs},\ y_{sn},\ z_{ss'}$ & 0--1 变量：操作 $v$ 属于子图 $s$；子图 $s$ 在核心 $n$；同核子图 $s$ 排在 $s'$ 前 \\
+ & $\sg(v),\ \core(v)$ & 操作 $v$ 所属子图、核心；$\core(s)$ 为子图 $s$ 所在核心 \\
+ & $r_s$ & 子图 $s$ 的拓扑秩 \\
+ & $\Pi_n$ & 核心 $n$ 上的子图执行序列，$\mathrm{pos}(s)$ 为子图 $s$ 在其中的位置 \\
+ & $a_{ss'}$ & 子图依赖标记，$s\to s'$ 时为 1，否则为 0 \\
+ & $\chi_{uv}$ & 换核标记，$u$、$v$ 所在核心不同时为 1，否则为 0 \\
+ & $h$ & 换核深度：商图最长路径上相邻子图不同核的次数 \\
+\midrule
+\multirow{11}{*}{代价与时间}
+ & $B$ & DDR 总带宽，60 bytes/cycle \\
+ & $\delta_{\mathrm{same}},\ \delta_{\mathrm{cross}}$ & 场景 A 同核 Task 切换等待 100、跨核前驱等待 1000 周期 \\
+ & $\delta_B$ & 场景 B 跨核拷贝同步延迟，500 周期 \\
+ & $Q_A,\ Q_B$ & 场景 A、B 下切图新增的边界搬运字节数 \\
+ & $Q_{\mathrm{orig}},\ Q^{\mathrm{sp}}$ & 原图 COPY 字节数；核内换入换出字节数 \\
+ & $b_s,\ e_s,\ d_s$ & 子图 $s$ 对应 Task 的激活、结束时刻与持续时间下界 \\
+ & $S_v,\ f_v$ & 操作 $v$ 的开始、完成时刻 \\
+ & $a_j,\ e_j,\ w_j(\tau)$ & 第 $j$ 次搬运的发射、完成时刻与剩余字节数 \\
+ & $m(\tau)$ & 时刻 $\tau$ 共享同一带宽池的在途搬运数 \\
+ & $\mathcal{L}_t,\ \Phi_n(j)$ & 张量 $t$ 的驻留区间；核心 $n$ 第 $j$ 步的驻留字节数 \\
+ & $C_{L1},\ C_{UB}$ & 每核 L1、UB 容量，524{,}288 与 131{,}072 字节 \\
+\midrule
+\multirow{12}{*}{算法}
+ & $\alpha$ & 分量装箱的切分粒度参数 \\
+ & $w_M(X),\ w_V(X)$ & 操作集合 $X$ 的 Cube、Vector 周期和，$\widehat w(X)=\max\{w_M(X),w_V(X)\}$ \\
+ & $\bar w$ & 区间切分上限 $\max(W_M,W_V)/(k\alpha)$ \\
+ & $L_M^n,\ L_V^n$ & 装箱过程中核心 $n$ 的 Cube、Vector 负载 \\
+ & $W,\ \ell(v)$ & 层带数；操作 $v$ 的最长路径层级 \\
+ & $\lambda,\ \mathrm{bl}(v)$ & 相位构造的跨核惩罚；自底向上关键路径长度 \\
+ & $F(v,n),\ \phi(v)$ & 操作 $v$ 放在核心 $n$ 的估计完成时刻；相位 \\
+ & $g_{un},\ \delta_{un}$ & 前驱 $u$ 与 $v$ 放在核心 $n$ 时的跨核代价（跨核时取正值，同核为 0） \\
+ & $E_p(x)$ & 方案 $x$ 在问题 $p$ 评估程序下的 Makespan \\
+ & $\mathcal{A},\ \mathcal{W},\ \Lambda$ & $\alpha$、$W$、$\lambda$ 的参数网格 \\
+ & $\mathcal{C}_{p,k}$ & 问题 $p$、$k$ 核的候选方案集合 \\
+ & $\mathcal{N}(x)$ & 局部搜索邻域 \\
+\midrule
+\multirow{7}{*}{缓存}
+ & $C_{L2},\ B_{L2}$ & 只读 L2 容量 1{,}048{,}576 字节、带宽 250 bytes/cycle \\
+ & $\mathcal{Q}(\tau)$ & 时刻 $\tau$ 的缓存内容（按写入先后排列的队列） \\
+ & $\theta$ & 字节命中率 \\
+ & $Q_D,\ Q_H$ & 只读 Cache 配置下仍走 DDR 的字节数、命中字节数 \\
+ & $\beta$ & 无 L2 时的 DDR 忙碌占比 \\
+ & $\gamma,\ \bar\gamma$ & 同一方案的缓存加速比及其带宽上限 \\
+ & $\Gamma_k$ & $k$ 核下两种配置各自最优方案的缓存加速比 \\
+\midrule
+\multirow{7}{*}{评价}
+ & $M_k$ & $k$ 核方案的 Makespan（周期） \\
+ & $M_1^{\mathrm{sc}}$ & 官方单核基准（整图作为一个 Task）的 Makespan \\
+ & $\rho_k$ & $k$ 核加速比 $M_1^{\mathrm{sc}}/M_k$ \\
+ & $\underline{M}_k^{\mathrm{an}},\ Q_{\min}$ & 解析下界；图输入与输出张量字节数之和 \\
+ & $M_k^{0},\ \varepsilon_k$ & 零通信理想表调度的 Makespan 与理想并行效率 \\
+ & $M_k^{\delta},\ \mathrm{ach}_k$ & 含同步代价的可达参考 Makespan；达成率 \\
+\end{longtable}
+\end{footnotesize}

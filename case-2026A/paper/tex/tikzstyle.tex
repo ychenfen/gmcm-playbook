@@ -1,0 +1,24 @@
+% 正文 TikZ 过程图的公共样式（与数据图配色一致：蓝 / 橙 / 青 + 灰；黑白打印靠形状、线型与文字区分）
+\definecolor{cB}{HTML}{2A78D6}\definecolor{cBL}{HTML}{E6F0FC}
+\definecolor{cO}{HTML}{EB6834}\definecolor{cOL}{HTML}{FDEDE6}
+\definecolor{cA}{HTML}{1BAF7A}\definecolor{cAL}{HTML}{E4F6EF}
+\definecolor{cG}{HTML}{9A9892}\definecolor{cGL}{HTML}{F2F1EE}
+\definecolor{ink}{HTML}{0B0B0B}\definecolor{ink2}{HTML}{52514E}
+\tikzset{
+  pbox/.style={draw=#1, fill=#1L, rounded corners=2pt, line width=0.6pt, align=flush center,
+               minimum height=8mm, inner sep=2.5pt, font=\small, text=ink},
+  pbox/.default=cB,
+  pkey/.style={pbox=cO, line width=1pt},
+  pio/.style={draw=ink2, fill=cGL, trapezium, trapezium left angle=72, trapezium right angle=108,
+              align=flush center, minimum height=7mm, inner sep=2pt, line width=0.6pt, font=\small},
+  pgroup/.style={draw=ink2, dashed, rounded corners=3pt, inner sep=3pt, line width=0.5pt},
+  plab/.style={font=\small\bfseries, text=ink2},
+  pnote/.style={font=\footnotesize, text=ink2, align=flush center},
+  parr/.style={-{Stealth[length=2mm]}, line width=0.7pt, draw=ink2},
+  parrB/.style={parr, draw=cB, line width=0.9pt},
+  parrO/.style={parr, draw=cO, line width=0.9pt, dashed},
+  op/.style={circle, draw=ink2, fill=white, minimum size=6mm, inner sep=0pt, font=\footnotesize, line width=0.6pt},
+  opA/.style={op, fill=cBL, draw=cB},
+  opB/.style={op, fill=cOL, draw=cO},
+  opC/.style={op, fill=cAL, draw=cA},
+}

@@ -1,0 +1,28 @@
+% 图B 模型由浅入深阶梯。放在每一问「模型建立」小节开头，或全文模型体系介绍处。
+% 回答：从最简单的模型出发，每升一级放松了哪条假设、为什么要升（上一级的不足，用数据说明）、升完效果如何。
+% 改法：一级一个框；框内三行固定写「模型名 / 新增或放松的假设 / 关键指标」；每级框下的橙字写「为什么要引入这一级」（上一级的不足，要有数据）。
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[UTF8]{ctex}
+\input{procstyle}
+\begin{document}
+\begin{tikzpicture}[x=1mm,y=1mm]
+\def\dx{40}\def\dy{21}
+\foreach \i/\name/\ass/\met/\sty/\lw in {
+  0/L1\ 静态线性模型/假设：参数恒定、各因素独立/RMSE 12.4/cG/0.6pt,
+  1/L2\ 引入机理约束/放松：加入守恒方程与边界条件/RMSE 8.1/cB/0.6pt,
+  2/L3\ 时变非线性模型/放松：参数随时间分段变化/RMSE 5.6/cB/0.6pt,
+  3/L4\ 随机—鲁棒模型/放松：输入含不确定性，求最坏情形/RMSE 4.9，最坏偏差 −38\%/cO/1.1pt}{
+  \node[box=\sty, text width=34mm, minimum height=17mm, anchor=south west, line width=\lw]
+       (s\i) at (\i*\dx, \i*\dy) {\textbf{\name}\\[1pt]{\footnotesize \ass}\\[1pt]{\footnotesize\color{ink2} \met}};
+}
+% 台阶箭头与「不足」标注：箭头从下一级顶部折向上一级，橙字写在上一级框的正下方
+\foreach \i/\why in {0/引入原因：L1 残差呈 24 h 周期，遗漏机理, 1/引入原因：L2 分时段误差相差 2.3 倍, 2/引入原因：L3 在极端输入下误差放大 3 倍}{
+  \pgfmathtruncatemacro\j{\i+1}
+  \draw[arrO] (s\i.north) |- (s\j.west);
+  \node[note, text=cO, anchor=north, text width=32mm] at ($(s\j.south)+(0,-1.5)$) {\why};
+}
+% 坐标轴：复杂度 / 刻画能力
+\draw[-{Stealth[length=2.4mm]}, line width=0.8pt, draw=ink2] (-4,-4) -- (160,-4) node[below left, note] {模型复杂度、求解代价 →};
+\draw[-{Stealth[length=2.4mm]}, line width=0.8pt, draw=ink2] (-4,-4) -- (-4,85) node[above right, note, anchor=south west] {对现实的刻画能力 ↑};
+\end{tikzpicture}
+\end{document}

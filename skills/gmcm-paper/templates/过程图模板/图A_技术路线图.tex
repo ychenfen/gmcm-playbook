@@ -1,0 +1,54 @@
+% 图A 技术路线图（总体框架）。放在「问题分析」一节末尾或正文第一张图。
+% 回答：全文分几问、每问用什么模型、前一问的结果怎样喂给后一问、从浅到深是怎么递进的。
+% 改法：把每个框里的文字换成你们真实的方法名和关键输出；每框写「做什么 + 得到什么」，不写空泛的「建立模型」。
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[UTF8]{ctex}
+\input{procstyle}
+\begin{document}
+\begin{tikzpicture}[x=1mm,y=1mm]
+\def\W{38}  % 每列框宽 mm
+% ---------- 顶部：输入与预处理
+\node[io, minimum width=128mm] (in) at (70,12) {附件数据：3 类传感器 × 12 个月 · 题目给定约束与参数};
+\node[box=cG, minimum width=128mm] (pre) at (70,0) {数据预处理：缺失插补（线性 + 季节项）· 3$\sigma$ 异常剔除 · 标准化 · 特征构造（24 维）};
+\draw[arr] (in) -- (pre);
+% ---------- 三列：问题一 / 二 / 三
+\foreach \x/\q in {22/问题一：单因素关系, 70/问题二：时序与机理, 118/问题三：多目标决策}{
+  \node[glabel] at (\x,-10) {\q};
+}
+% 行 1：问题分析
+\node[box=cG, text width=\W mm] (a1) at (22,-19) {描述统计与相关分析\\找出主导因素 5 个};
+\node[box=cG, text width=\W mm] (a2) at (70,-19) {时序分解\\识别趋势、周期与突变};
+\node[box=cG, text width=\W mm] (a3) at (118,-19) {多目标冲突分析\\成本—风险帕累托前沿};
+% 行 2：基础模型
+\node[box, text width=\W mm] (b1) at (22,-33) {多元线性回归\\（基线，R$^2$ = 0.71）};
+\node[box, text width=\W mm] (b2) at (70,-33) {ARIMA 预测\\（基线，MAPE 9.8\%）};
+\node[box, text width=\W mm] (b3) at (118,-33) {单目标线性规划\\（只计成本）};
+% 行 3：改进模型
+\node[box, text width=\W mm] (c1) at (22,-47) {加入机理约束的\\非线性回归（R$^2$ = 0.89）};
+\node[key, text width=\W mm] (c2) at (70,-47) {机理—数据混合预测\\（MAPE 4.1\%）};
+\node[key, text width=\W mm] (c3) at (118,-47) {多目标混合整数规划\\+ 机会约束（风险）};
+% 行 4：求解与检验
+\node[box=cA, text width=\W mm] (d1) at (22,-61) {最小二乘 + 交叉验证\\残差检验};
+\node[box=cA, text width=\W mm] (d2) at (70,-61) {滚动预测回测\\区间覆盖率 94\%};
+\node[box=cA, text width=\W mm] (d3) at (118,-61) {NSGA-II + 小规模精确解\\对照（差距 1.8\%）};
+% 竖向箭头
+\foreach \c in {1,2,3}{
+  \draw[arr] (a\c) -- (b\c); \draw[arr] (b\c) -- node[right, note, xshift=-1pt]{不足} (c\c); \draw[arr] (c\c) -- (d\c);
+}
+\foreach \x in {22,70,118} \draw[arr] (pre.south -| \x,0) -- (\x,-7.5);
+% 问题间传递（虚线橙色）
+\draw[arrO] (c1.east) -- node[above, note]{主导\\因素} (c2.west);
+\draw[arrO] (c2.east) -- node[above, note]{需求\\预测} (c3.west);
+% ---------- 底部：检验与结论
+\node[box=cA, minimum width=128mm] (sen) at (70,-75) {灵敏度分析（参数 ±20\%）· 鲁棒性检验 · 与强基线对比 · 模型局限};
+\node[io, minimum width=128mm] (out) at (70,-87) {结论与建议：给出方案、关键数字与适用边界};
+\foreach \x in {22,70,118} \draw[arr] (\x,-65.5) -- (sen.north -| \x,0);
+\draw[arr] (sen) -- (out);
+% ---------- 左侧层级标签
+\foreach \y/\t in {-19/分析, -33/基础, -47/改进, -61/检验}
+  \node[glabel, anchor=east] at (-2,\y) {\t};
+% ---------- 右侧「由浅入深」指示：同一问内从基础模型到改进模型，三问之间从单因素到多目标
+\draw[-{Stealth[length=2.6mm]}, line width=1.4pt, draw=cB!60] (143,-14) -- (143,-66)
+  node[pos=0.5, rotate=-90, fill=white, inner sep=2pt, font=\footnotesize\bfseries, text=cB] {由浅入深};
+\end{tikzpicture}
+\end{document}

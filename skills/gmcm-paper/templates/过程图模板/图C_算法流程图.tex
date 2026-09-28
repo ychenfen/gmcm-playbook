@@ -1,0 +1,34 @@
+% 图C 算法流程图（含判断与循环）。放在「模型求解」小节，紧挨伪代码或代替伪代码。
+% 回答：算法从哪开始、每轮做什么、什么时候停；本文改进的是哪一步（橙框）。
+% 改法：只画你们自己的算法；通用教科书流程（如标准遗传算法原理图）不要画，评委见得太多，也不体现工作量。
+%       参数写具体值（T0、α、邻域大小），终止条件写具体阈值。
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[UTF8]{ctex}
+\input{procstyle}
+\begin{document}
+\begin{tikzpicture}[node distance=5mm and 10mm]
+\node[term] (st) {开始};
+\node[io, below=of st, minimum width=46mm] (in) {读入数据与参数 $T_0=100,\ \alpha=0.95$};
+\node[proc, below=of in] (init) {贪心构造初始可行解 $x_0$};
+\node[proc, below=of init] (eval) {计算目标值 $f(x)$ 与下界 $L$};
+\node[dec, below=of eval] (stop) {$\dfrac{f(x^*)-L}{L}<1\%$\\或迭代 $\ge 2000$？};
+\node[key, minimum width=40mm, right=14mm of stop] (nb) {邻域操作\\交换 / 插入 / 2-opt};
+\node[proc, below=of nb] (fix) {可行性修复\\（容量、时间窗）};
+\node[proc, below=of fix] (acc) {Metropolis 准则接受\\$T \leftarrow \alpha T$};
+\node[proc, below=of acc] (upd) {更新历史最优 $x^*$};
+\node[io, below=11mm of stop, minimum width=36mm] (out) {输出 $x^*$ 与差距};
+\node[term, below=of out] (ed) {结束};
+% 主干
+\draw[arr] (st) -- (in); \draw[arr] (in) -- (init); \draw[arr] (init) -- (eval); \draw[arr] (eval) -- (stop);
+\draw[arr] (stop) -- node[right, note]{是} (out); \draw[arr] (out) -- (ed);
+% 否 → 右侧循环
+\draw[arr] (stop.east) -- node[above, note]{否} (nb.west);
+\draw[arr] (nb) -- (fix); \draw[arr] (fix) -- (acc); \draw[arr] (acc) -- (upd);
+\draw[arr] (upd.east) -- ++(9mm,0) |- node[pos=0.25, right, note]{下一轮} (eval.east);
+% 模块分组
+\begin{scope}[on background layer]
+\node[group, fit=(nb)(upd), inner sep=3mm] (g) {};
+\end{scope}
+\node[glabel, anchor=north] at (g.south) {局部搜索模块（本文改进）};
+\end{tikzpicture}
+\end{document}
