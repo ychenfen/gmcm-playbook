@@ -1,0 +1,307 @@
+{
+  "snapshot_date": "2026-10-27",
+  "skill_count": 5,
+  "excluded": [
+    "__pycache__",
+    "*.pyc",
+    ".DS_Store",
+    "*.bak"
+  ],
+  "skills": [
+    {
+      "name": "gmcm-paper",
+      "files": [
+        {
+          "path": "skills/gmcm-paper/SKILL.md",
+          "bytes": 10115,
+          "sha256": "5f67fc5897eeb0eaf72fe6352cbec1ecad3270438e48eb81eb9d112a59a99339"
+        },
+        {
+          "path": "skills/gmcm-paper/references/01_获奖论文拆解方法.md",
+          "bytes": 5252,
+          "sha256": "573a370653d00e0423b7602e0a79bbc563f47267a3fe97824af3d18d58fc7ae8"
+        },
+        {
+          "path": "skills/gmcm-paper/references/02_去AI味与润色流程.md",
+          "bytes": 3091,
+          "sha256": "184daec6169c725335d8815fb3e1468859f8f64763ea5a842231a8c8592d343f"
+        },
+        {
+          "path": "skills/gmcm-paper/references/03_提交前检查清单.md",
+          "bytes": 2721,
+          "sha256": "cc1f12b1595d98d900143bffa82f1568bc12e48977c9beadacccb78105881a00"
+        },
+        {
+          "path": "skills/gmcm-paper/references/04_页数目标与篇幅分配.md",
+          "bytes": 3913,
+          "sha256": "9f8d83ca11e1c54523bb0d76a596b252263e998d3bc0bc6a5924b6fb8212251e"
+        },
+        {
+          "path": "skills/gmcm-paper/references/05_建模由浅入深写法.md",
+          "bytes": 4739,
+          "sha256": "5639be651857550a32bd71b8b66a82c9eba6b51cee5f1e760dae82b4fb7a466e"
+        },
+        {
+          "path": "skills/gmcm-paper/references/06_过程图与作图规范.md",
+          "bytes": 4954,
+          "sha256": "bf624c0e439be90f21971ca48403986495e6f830636b364baece9c92b7b5f7bc"
+        },
+        {
+          "path": "skills/gmcm-paper/references/07_分节润色提示词.md",
+          "bytes": 4593,
+          "sha256": "0e5bb6ce7b3bdd8d77e332e86b6bfacbbea58704a73a12d6f1b10e64377023de"
+        },
+        {
+          "path": "skills/gmcm-paper/references/08_AI使用说明写法.md",
+          "bytes": 3526,
+          "sha256": "8dd12d42ff597cafe99f8eca9bbaa27b81f52162c2960bc0c1f844445561836c"
+        },
+        {
+          "path": "skills/gmcm-paper/references/09_队友改稿审阅流程.md",
+          "bytes": 2615,
+          "sha256": "31ee12716e4805620f042ed5584ded1bf67f0890a4b2ec028f9886c89cef8dfc"
+        },
+        {
+          "path": "skills/gmcm-paper/scripts/check_code_ai_header.py",
+          "bytes": 4539,
+          "sha256": "1754a24a5f241a792e4dca515a92c52da36bcf2035a5dd6551fe465ee1d295f7"
+        },
+        {
+          "path": "skills/gmcm-paper/scripts/clean_meta.py",
+          "bytes": 3020,
+          "sha256": "e492cde731768d57d4916f2b3f5d87d4843addc6b8ec72845745c6231804c56c"
+        },
+        {
+          "path": "skills/gmcm-paper/scripts/docx_tools.py",
+          "bytes": 4390,
+          "sha256": "dccdc239d100fd08c09848c642f9a42d1956357f31a5406ccd27a270b8bd7fa0"
+        },
+        {
+          "path": "skills/gmcm-paper/scripts/fig_examples.py",
+          "bytes": 9886,
+          "sha256": "c3bbd8e0aee54096e19f0272dffcf935914349ab51093c184df0ecdc8096540e"
+        },
+        {
+          "path": "skills/gmcm-paper/scripts/figstyle.py",
+          "bytes": 5470,
+          "sha256": "0669bb4200526ab86304d4b57948730b75f7bac27ff17bae176f95946413fb64"
+        },
+        {
+          "path": "skills/gmcm-paper/scripts/page_budget.py",
+          "bytes": 5374,
+          "sha256": "c07950d4ceda5132ff67428e942d8657121e946446dc14495fb97cfc079cd1e8"
+        },
+        {
+          "path": "skills/gmcm-paper/scripts/paper_lint.py",
+          "bytes": 11029,
+          "sha256": "1a459b174f60390e7fd1c40248b094662db61ec59412f366af2730e1c0a13acc"
+        },
+        {
+          "path": "skills/gmcm-paper/scripts/submission_check.py",
+          "bytes": 5969,
+          "sha256": "e6e0b30edd207415d6a300c7164b5c8e3a7c1e726547b0a9a171ffd8c769dc51"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/procstyle.tex",
+          "bytes": 2329,
+          "sha256": "9a29cfbeaa333eb24af4b78dee55fa704fe87b410c24cfd10ba8e73cce1f84d4"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图A_技术路线图.pdf",
+          "bytes": 69483,
+          "sha256": "5c3c242425da51aa5447f32121f0a22978a002054920df88b022653e77009e51"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图A_技术路线图.png",
+          "bytes": 166220,
+          "sha256": "b81eb94c92eebe2652023b670c62231fd3390a1399324f623ec1052fe4def89f"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图A_技术路线图.tex",
+          "bytes": 3718,
+          "sha256": "301deee97ec1becf61244b15947b6a8f594298dc8fa554c21b5bf0497d8f859d"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图B_由浅入深阶梯.pdf",
+          "bytes": 54889,
+          "sha256": "c5677cdef5217c69c1a27af6230f3b67477439ff03edeff74d415b0a3f2e0d54"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图B_由浅入深阶梯.png",
+          "bytes": 79154,
+          "sha256": "ad9f89c82779d98d388d391010c374d91608b871c757a6804aa83710c7f2e5ba"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图B_由浅入深阶梯.tex",
+          "bytes": 2120,
+          "sha256": "574c2d978c2c595403fe2840e08e6bae57b62945fa317150bb72336ae227a8c3"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图C_算法流程图.pdf",
+          "bytes": 46884,
+          "sha256": "f2ee024349962f182b256600f78dc46906e82f43012ff497d31e175ebad49bd4"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图C_算法流程图.png",
+          "bytes": 74744,
+          "sha256": "5666d9758c75b92740a1432860ee01ec8e32a6d77219d0da9de034d5b704077c"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图C_算法流程图.tex",
+          "bytes": 2095,
+          "sha256": "a4b496d91839c3a2fd83bef646082aee71da5c922bc6bf686843f6be1ee4d542"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图D_数据预处理流程.pdf",
+          "bytes": 44150,
+          "sha256": "191e81759c309659d4c87ea7fd50bb8f1d0f1fb7b9cb570e94357cf3096d39e2"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图D_数据预处理流程.png",
+          "bytes": 58272,
+          "sha256": "c383e41e770515cf5a3798fa5828473cf22fc08e94f90e19b1ac0274434680be"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图D_数据预处理流程.tex",
+          "bytes": 2109,
+          "sha256": "6e022d4ef8d02ecd1b864800afa31d78f39a90fb163df732369c0be0c8aa90d5"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图E_变量影响关系图.pdf",
+          "bytes": 41289,
+          "sha256": "f58c212db8f3830ffdcf5ccfab16ae1024aa5e3abcde0662bdff7605974bc851"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图E_变量影响关系图.png",
+          "bytes": 52770,
+          "sha256": "de25d3ad965c67ff7be49f64312014d16287a0608de2191f3c0afedb85b470df"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图E_变量影响关系图.tex",
+          "bytes": 2222,
+          "sha256": "dac8f370dbb56ef06c9ae3e95c9f321b6c4fb357d5315b329f10d1f73579744b"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图F_双层模型结构.pdf",
+          "bytes": 50510,
+          "sha256": "11d54e580b28962b0afc0f07560620fa50cade950d8fa2b4946d26528fb1e2bc"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图F_双层模型结构.png",
+          "bytes": 69032,
+          "sha256": "0551586dd365be7e7bb40ef9601ecf18c9f5fb79d2d1fb67a5901597cbcbefa3"
+        },
+        {
+          "path": "skills/gmcm-paper/templates/过程图模板/图F_双层模型结构.tex",
+          "bytes": 2266,
+          "sha256": "44f46360f266526140f72fbd70d4cac0953626f0feb011eaa39a4bdcbd1d43e8"
+        }
+      ]
+    },
+    {
+      "name": "guosai-docx-format",
+      "files": [
+        {
+          "path": "skills/guosai-docx-format/README.md",
+          "bytes": 1046,
+          "sha256": "5517dc0579165f0fbb1b5b84b6f3db557c8c7ba90ee3e40714ebe1cc93a5112d"
+        },
+        {
+          "path": "skills/guosai-docx-format/SKILL.md",
+          "bytes": 10762,
+          "sha256": "62f77bae4e111c9fd115c0ed88c3080a23d27e45db504c9e196b2ba040a0b9d2"
+        },
+        {
+          "path": "skills/guosai-docx-format/assets/footer1.xml",
+          "bytes": 1762,
+          "sha256": "0dc25e749eb952e20b073d7662ffb4b9932805eca0b0bc92cdc467fc11940eb7"
+        },
+        {
+          "path": "skills/guosai-docx-format/assets/numbering.xml",
+          "bytes": 139,
+          "sha256": "48f4be051a9d02a0f6df2a46da4bd2d3aaf39f976916db7e533f8056738d1324"
+        },
+        {
+          "path": "skills/guosai-docx-format/assets/styles.xml",
+          "bytes": 29439,
+          "sha256": "d3dbf5a263481378454007b76c9bad87b9f1d1f1937e47016d9167ffae10f34c"
+        },
+        {
+          "path": "skills/guosai-docx-format/scripts/apply_guosai_format.py",
+          "bytes": 7173,
+          "sha256": "bf48c055224e9681c280d5d78128bf3af3aa69d7ed192724c9f68517794e4697"
+        },
+        {
+          "path": "skills/guosai-docx-format/scripts/step0_rebuild_cover.py",
+          "bytes": 10621,
+          "sha256": "024881578f2fbb9f3006fb029c8d277750dd04088255a32a681d73243ef3a04e"
+        },
+        {
+          "path": "skills/guosai-docx-format/scripts/step1_fix_headings.py",
+          "bytes": 5173,
+          "sha256": "3d16afffac62617ff23751ef7c254635d498d5f3d2cde542364cd01d11d8d6d5"
+        },
+        {
+          "path": "skills/guosai-docx-format/scripts/step2_fix_math.py",
+          "bytes": 2149,
+          "sha256": "1552395e1ff2fe3185e651b0123192f230e56b198cd6fe5281ce1dc97c4ba047"
+        },
+        {
+          "path": "skills/guosai-docx-format/scripts/step3_caption_prefix.py",
+          "bytes": 1680,
+          "sha256": "5ea1796abcbccb6b03e5682258fe5ab8b818f9bae9f21d991057dfde4dd9c525"
+        },
+        {
+          "path": "skills/guosai-docx-format/scripts/step4_cantsplit.py",
+          "bytes": 1869,
+          "sha256": "c2f6a34e5ec07af120a90908bfdef32dcf2d9f7c9c399e0308d0848e8d089190"
+        },
+        {
+          "path": "skills/guosai-docx-format/scripts/step5_pagebreak.py",
+          "bytes": 1371,
+          "sha256": "44f6f579253f170f474ed1cab27d6c9496318ecbe43d878aed9d3c6b3bb6d5ea"
+        },
+        {
+          "path": "skills/guosai-docx-format/scripts/step6_ref_number.py",
+          "bytes": 1135,
+          "sha256": "24c80dba11bc1a6a90fbfc71c70156efe09afde462e23d04a6abf44d5b558210"
+        },
+        {
+          "path": "skills/guosai-docx-format/scripts/step7_insert_toc.py",
+          "bytes": 3413,
+          "sha256": "8164b5225d58beadf06e0e87df0d78ceb6068902a3d8a7b7cf2cfed91fdb1210"
+        }
+      ]
+    },
+    {
+      "name": "mcm-humanizer",
+      "files": [
+        {
+          "path": "skills/mcm-humanizer/SKILL.md",
+          "bytes": 10642,
+          "sha256": "3f9e05eb15390915fdd56c408dcd1d0b6371f6019e1fcc500afad6edd9710dee"
+        }
+      ]
+    },
+    {
+      "name": "competition-model-quality-freeze",
+      "files": [
+        {
+          "path": "skills/competition-model-quality-freeze/SKILL.md",
+          "bytes": 4132,
+          "sha256": "5c338434b7acabb1bf4a06a97d39081b80887f1982bf0df52ed6925e48d3801a"
+        }
+      ]
+    },
+    {
+      "name": "cumcm-delivery-compliance",
+      "files": [
+        {
+          "path": "skills/cumcm-delivery-compliance/SKILL.md",
+          "bytes": 3799,
+          "sha256": "bd3f5357cb302a729fd7acab7d24b89c7e6766dbd1f75f5968ac2ba4225bf35a"
+        }
+      ]
+    }
+  ]
+}
